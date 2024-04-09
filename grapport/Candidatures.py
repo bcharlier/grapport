@@ -3,13 +3,13 @@ import random
 
 import pandas as pd
 
-import graport.config
+import grapport.config
 
 
 class Candidatures:
 
     def __init__(self, fname):
-        self.filename = os.path.join(graport.config.data_dir, fname)
+        self.filename = os.path.join(grapport.config.data_dir, fname)
         self.data = self.clean_data(self.get_data())
 
     def get_data(self):

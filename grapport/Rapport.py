@@ -6,8 +6,8 @@ from docx import Document
 from docx.shared import Inches, RGBColor, Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
-import graport
-from graport.utils import calculate_age, short_path
+import grapport
+from grapport.utils import calculate_age, short_path
 
 
 
@@ -29,10 +29,10 @@ class Rapport:
         self.rapporteur = rapporteur
 
         # verifier si le fichier logo_um.png existe
-        if not os.path.exists(os.path.join(graport.config.image_dir, 'logo.png')):
+        if not os.path.exists(os.path.join(grapport.config.image_dir, 'logo.png')):
             self.logo = None
         else:
-            self.logo = os.path.join(graport.config.image_dir, 'logo.png')
+            self.logo = os.path.join(grapport.config.image_dir, 'logo.png')
 
     def generate(self):
 
@@ -40,7 +40,7 @@ class Rapport:
 
             candidat = self.candidatures.get_candidate(id, type=self.rapporteur.type)
             print(f"Generating report for candidate {candidat['Nom']} {candidat['Prénom']}...", end="")
-            filename = os.path.join(graport.config.data_dir, f'rapport_{candidat["Nom"]}-{candidat["Prénom"]}.docx')
+            filename = os.path.join(grapport.config.data_dir, f'rapport_{candidat["Nom"]}-{candidat["Prénom"]}.docx')
             doc = self.create_document(candidat)
             print('done. Saving... ', end='')
             doc.save(filename)
@@ -57,7 +57,7 @@ class Rapport:
         paragraph_format.space_before = Pt(12)
 
         if self.logo is not None:
-            document.add_picture(os.path.join(graport.config.data_dir, 'logo.png'), width=Inches(1.25))
+            document.add_picture(os.path.join(grapport.config.image_dir, 'logo.png'), width=Inches(1.25))
 
 
         title = document.add_heading(level=1)
