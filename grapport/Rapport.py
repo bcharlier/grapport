@@ -1,14 +1,12 @@
 import datetime
 import os.path
 
-import pandas as pd
 from docx import Document
-from docx.shared import Inches, RGBColor, Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.shared import Inches, Pt
 
 import grapport
 from grapport.utils import calculate_age, short_path
-
 
 
 class Rapport:
@@ -27,6 +25,8 @@ class Rapport:
     def __init__(self, candidatures, rapporteur):
         self.candidatures = candidatures
         self.rapporteur = rapporteur
+        if self.rapporteur.rapports == "all":
+            self.rapporteur.rapports = list(candidatures.data.index)
 
         # verifier si le fichier logo_um.png existe
         if not os.path.exists(os.path.join(grapport.config.image_dir, 'logo.png')):
@@ -37,10 +37,10 @@ class Rapport:
     def generate(self):
 
         for id in self.rapporteur.rapports:
-
             candidat = self.candidatures.get_candidate(id, type=self.rapporteur.type)
             print(f"Generating report for candidate {candidat['Nom']} {candidat['Prénom']}...", end="")
-            filename = os.path.join(grapport.config.data_dir, f'rapport_{candidat["Nom"]}-{candidat["Prénom"]}.docx')
+            filename = os.path.join(grapport.config.data_dir,
+                                    f"rapport-{candidat['Nom'].replace(' ', '_')}_{candidat['Prénom'].replace(' ', '_')}-{self.rapporteur.nom.replace(' ', '_')}.docx")
             doc = self.create_document(candidat)
             print('done. Saving... ', end='')
             doc.save(filename)
@@ -59,21 +59,18 @@ class Rapport:
         if self.logo is not None:
             document.add_picture(os.path.join(grapport.config.image_dir, 'logo.png'), width=Inches(1.25))
 
-
         title = document.add_heading(level=1)
         title.alignment = 1
         run = title.add_run(f"RAPPORT SUR UNE CANDIDATURE\nN° Galaxie du Poste : {candidat['Référence GALAXIE']}")
-        #run.bold = True
-        #run.font.size = Inches(0.25)
-        #run.font.color.rgb = RGBColor(0, 0, 0)
-
-
+        # run.bold = True
+        # run.font.size = Inches(0.25)
+        # run.font.color.rgb = RGBColor(0, 0, 0)
 
         document.add_paragraph()
 
-        #---------------------------------------------
+        # ---------------------------------------------
         # Rapporteur
-        #---------------------------------------------
+        # ---------------------------------------------
 
         reviewer = document.add_paragraph()
         reviewer.add_run('Nom de la rapporteuse : ').bold = True
@@ -92,9 +89,9 @@ class Rapport:
         reviewer.add_run('Profil : ').bold = True
         reviewer.add_run(candidat['Profil J.o'])
 
-        #---------------------------------------------
+        # ---------------------------------------------
         # Candidat
-        #---------------------------------------------
+        # ---------------------------------------------
 
         h2 = document.add_heading(level=2)
         run = h2.add_run(f"Candidat N° {candidat['N° candidat']}")
@@ -127,9 +124,9 @@ class Rapport:
         cand_s.add_run('Qualification : ').bold = True
         cand_s.add_run(f"{candidat['N° de qualif']}")
 
-        #---------------------------------------------
+        # ---------------------------------------------
         # Diplôme
-        #---------------------------------------------
+        # ---------------------------------------------
 
         document.add_heading('Diplôme', level=2)
 
@@ -160,9 +157,9 @@ class Rapport:
             autre.add_run('Autres diplômes : ').bold = True
             autre.add_run(f"{candidat['Autres diplômes']}")
 
-        #---------------------------------------------
+        # ---------------------------------------------
         # Activités
-        #---------------------------------------------
+        # ---------------------------------------------
 
         document.add_heading("Activités", level=2)
 
@@ -185,10 +182,9 @@ class Rapport:
             publications.add_run('Travaux : ').bold = True
             publications.add_run(candidat['Travaux'])
 
-
-        #---------------------------------------------
+        # ---------------------------------------------
         # Proposition et avis
-        #---------------------------------------------
+        # ---------------------------------------------
 
         title = document.add_heading(level=1)
         title.alignment = 1
@@ -199,7 +195,8 @@ class Rapport:
         cells = table.rows[0].cells
         par = cells[0].add_paragraph()
         par.alignment = 1
-        par.add_run('Compte tenu du profil du poste, tel qu’il a été diffusé, je recommande l’audition du candidat ci-dessus (favorable ou réservé ou défavorable):')
+        par.add_run(
+            'Compte tenu du profil du poste, tel qu’il a été diffusé, je recommande l’audition du candidat ci-dessus (favorable ou réservé ou défavorable):')
 
         cells = table.rows[1].cells
         par = cells[0].add_paragraph()
@@ -215,13 +212,14 @@ class Rapport:
         par.add_run('Motif : ').bold = True
         par.add_run('\n')
 
-        #---------------------------------------------
+        # ---------------------------------------------
         # Signature
-        #---------------------------------------------
+        # ---------------------------------------------
 
         document.add_paragraph()
         sig = document.add_paragraph()
-        sig.add_run(f'Fait à {self.rapporteur.ville if self.rapporteur.ville is not None else " " * 5}, le {datetime.datetime.now().strftime("%d/%m/%Y")}')
+        sig.add_run(
+            f'Fait à {self.rapporteur.ville if self.rapporteur.ville is not None else " " * 5}, le {datetime.datetime.now().strftime("%d/%m/%Y")}')
         sig.add_run(' ' * 25)
         sig.add_run(f"Signature {self.rapporteur.nom}")
         if self.rapporteur.signature is not None:
@@ -233,4 +231,3 @@ class Rapport:
         document.add_page_break()
 
         return document
-

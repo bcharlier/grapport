@@ -8,13 +8,14 @@ candidature = grapport.Candidatures("encrypted_data.csv")
 
 # Définit le rapporteur
 votre_nom = "Camille Dupont"
-votre_ville = "Vierzon"   # None si pas de ville
+votre_ville = "Vierzon"  # None si pas de ville
 votre_signature = "signature.png"  # None si pas de signature
+vos_rapports = "all"  # Liste des candidats à rapporter, peut être une liste de noms, d'index ou de numéros de candidat, ou "all" pour tous les candidats
 
 rapporteur = grapport.Rapporteur(votre_nom,
                                  ville=votre_ville,
                                  signature=votre_signature,
-                                 rapports=[1, 2, 3]
+                                 rapports=vos_rapports,
                                  )
 
 # Génère les rapports
