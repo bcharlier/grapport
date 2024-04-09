@@ -17,7 +17,7 @@ pip install -r requirements.txt
 
 Dans un terminal,
 ```bash
-python generate.py
+python main.py
 ```
 
 # Auteur
