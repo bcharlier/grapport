@@ -24,6 +24,6 @@ python main.py
 
 Benjamin Charlier - [benjamin.charlier@umontpellier.fr](mailto:benjamin.charlier@umontpellier.fr)
 
-# License
+# Licence
 
 MIT, 2024.
