@@ -29,10 +29,10 @@ class Rapport:
         self.rapporteur = rapporteur
 
         # verifier si le fichier logo_um.png existe
-        if not os.path.exists(os.path.join(graport.config.data_dir, 'logo.png')):
+        if not os.path.exists(os.path.join(graport.config.image_dir, 'logo.png')):
             self.logo = None
         else:
-            self.logo = os.path.join(graport.config.data_dir, 'logo.png')
+            self.logo = os.path.join(graport.config.image_dir, 'logo.png')
 
     def generate(self):
 
