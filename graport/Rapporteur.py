@@ -1,7 +1,6 @@
 import os.path
 
-from graport import data_dir
-
+import graport.config
 
 class Rapporteur:
     """
@@ -21,10 +20,10 @@ class Rapporteur:
 
         # vérifie le chemin de l'image de la signature
         if signature is not None:
-            if not os.path.exists(signature):
+            if not os.path.exists(os.path.join(graport.config.data_dir, signature)):
                 raise FileNotFoundError(f'Le fichier {signature} n\'existe pas.')
 
-        self.signature = signature
+        self.signature = os.path.join(graport.config.data_dir, signature) if signature is not None else None
         self.rapports = rapports
 
 
@@ -33,6 +32,8 @@ class Rapporteur:
 
 
 if __name__ == '__main__':
-    sig_path = os.path.join(data_dir, 'signature.png')
+    sig_path = os.path.join(graport.config.data_dir, 'signature.png')
 
     rapporteur = Rapporteur("Camille Dupont", ville="Montpellier", signature=sig_path, rapports=[1, 2, 3])
+
+

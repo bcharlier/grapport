@@ -6,10 +6,9 @@ from docx import Document
 from docx.shared import Inches, RGBColor, Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
-from graport.Candidatures import Candidatures
-from graport import data_dir, calculate_age, short_path
-from graport.Poste import Poste
-from graport.Rapporteur import Rapporteur
+import graport
+from graport.utils import calculate_age, short_path
+
 
 
 class Rapport:
@@ -30,10 +29,10 @@ class Rapport:
         self.rapporteur = rapporteur
 
         # verifier si le fichier logo_um.png existe
-        if not os.path.exists(os.path.join(data_dir, 'logo.png')):
+        if not os.path.exists(os.path.join(graport.config.data_dir, 'logo.png')):
             self.logo = None
         else:
-            self.logo = os.path.join(data_dir, 'logo.png')
+            self.logo = os.path.join(graport.config.data_dir, 'logo.png')
 
     def generate(self):
 
@@ -41,7 +40,7 @@ class Rapport:
 
             candidat = self.candidatures.get_candidate(id, type=self.rapporteur.type)
             print(f"Generating report for candidate {candidat['Nom']} {candidat['Prénom']}...", end="")
-            filename = os.path.join(data_dir, f'rapport_{candidat["Nom"]}-{candidat["Prénom"]}.docx')
+            filename = os.path.join(graport.config.data_dir, f'rapport_{candidat["Nom"]}-{candidat["Prénom"]}.docx')
             doc = self.create_document(candidat)
             print('done. Saving... ', end='')
             doc.save(filename)
@@ -58,12 +57,12 @@ class Rapport:
         paragraph_format.space_before = Pt(12)
 
         if self.logo is not None:
-            document.add_picture(os.path.join(data_dir, 'logo.png'), width=Inches(1.25))
+            document.add_picture(os.path.join(graport.config.data_dir, 'logo.png'), width=Inches(1.25))
 
 
         title = document.add_heading(level=1)
         title.alignment = 1
-        run = title.add_run(f"RAPPORT SUR UNE CANDIDATURE\nN° Galaxie du Poste : {poste.id}")
+        run = title.add_run(f"RAPPORT SUR UNE CANDIDATURE\nN° Galaxie du Poste : {candidat['Référence GALAXIE']}")
         #run.bold = True
         #run.font.size = Inches(0.25)
         #run.font.color.rgb = RGBColor(0, 0, 0)
@@ -222,11 +221,11 @@ class Rapport:
 
         document.add_paragraph()
         sig = document.add_paragraph()
-        sig.add_run(f'Fait à {self.rapporteur.ville}, le {datetime.datetime.now().strftime("%d/%m/%Y")}')
+        sig.add_run(f'Fait à {self.rapporteur.ville if self.rapporteur.ville is not None else " " * 5}, le {datetime.datetime.now().strftime("%d/%m/%Y")}')
         sig.add_run(' ' * 25)
         sig.add_run(f"Signature {self.rapporteur.nom}")
         if self.rapporteur.signature is not None:
-            document.add_picture(os.path.join(data_dir, self.rapporteur.signature), width=Inches(1))
+            document.add_picture(self.rapporteur.signature, width=Inches(1))
 
         last_paragraph = document.paragraphs[-1]
         last_paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
@@ -235,12 +234,3 @@ class Rapport:
 
         return document
 
-
-
-if __name__ == '__main__':
-    poste = Poste()
-    candidature = Candidatures("../data/Extraction galaxie poste 169.xls")
-    rapporteur = Rapporteur("Camille Dupont", ville="Montpellier", signature=os.path.join(data_dir, 'signature.png'), rapports=[1, 2])
-
-    rapport = Rapport(candidature, rapporteur)
-    rapport.generate()
