@@ -122,7 +122,7 @@ class Rapport:
 
         cand_s.add_run('\n')
         cand_s.add_run('Qualification : ').bold = True
-        cand_s.add_run(f"{int(candidat['N° de qualif'])}")
+        cand_s.add_run(candidat['N° de qualif'])
 
         # ---------------------------------------------
         # Diplôme
