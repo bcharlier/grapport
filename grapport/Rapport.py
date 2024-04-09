@@ -108,7 +108,7 @@ class Rapport:
 
         cand.add_run('\n')
         cand.add_run('Né(e) le : ').bold = True
-        cand.add_run(candidat['Né(e) le'] + '(' + calculate_age(candidat['Né(e) le']) + ' ans)')
+        cand.add_run(candidat['Né(e) le'] + ' (' + calculate_age(candidat['Né(e) le']) + ' ans)')
         cand.add_run(' ' * 5)
         cand.add_run('à : ').bold = True
         cand.add_run(candidat['Lieu de naissance'])
@@ -122,7 +122,7 @@ class Rapport:
 
         cand_s.add_run('\n')
         cand_s.add_run('Qualification : ').bold = True
-        cand_s.add_run(f"{candidat['N° de qualif']}")
+        cand_s.add_run(f"{int(candidat['N° de qualif'])}")
 
         # ---------------------------------------------
         # Diplôme
@@ -221,9 +221,9 @@ class Rapport:
         sig.add_run(
             f'Fait à {self.rapporteur.ville if self.rapporteur.ville is not None else " " * 5}, le {datetime.datetime.now().strftime("%d/%m/%Y")}')
         sig.add_run(' ' * 25)
-        sig.add_run(f"Signature {self.rapporteur.nom}")
+        sig.add_run(f"Signature, {self.rapporteur.nom}")
         if self.rapporteur.signature is not None:
-            document.add_picture(self.rapporteur.signature, width=Inches(1))
+            document.add_picture(self.rapporteur.signature, width=Inches(1.5))
 
         last_paragraph = document.paragraphs[-1]
         last_paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT

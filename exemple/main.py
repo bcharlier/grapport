@@ -1,7 +1,10 @@
+import sys
+sys.path.append("..")
+
 import grapport
 
 # Définit le répertoire des données
-grapport.set_data_dir("./exemple")
+grapport.set_data_dir("./")
 
 # Charge les données des candidatures
 candidature = grapport.Candidatures("encrypted_data.csv")

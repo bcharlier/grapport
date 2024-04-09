@@ -6,7 +6,7 @@ Générateur de rapport pour les Comités de Sélection.
 
 Dans un terminal, exécutez les commandes suivantes :
 ```bash
-git clone 
+git clone https://github.com/bcharlier/grapport.git
 cd grapport
 python -m venv venv
 source venv/bin/activate
@@ -17,6 +17,7 @@ pip install -r requirements.txt
 
 Dans un terminal,
 ```bash
+cd exemple
 python main.py
 ```
 
