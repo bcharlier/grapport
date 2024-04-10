@@ -123,12 +123,14 @@ class Rapport:
         cand_s.add_run('\n')
         cand_s.add_run('Qualification : ').bold = True
         cand_s.add_run(str(candidat['N° de qualif']))
+        cand_s.add_run(' ' * 5)
+
 
         # ---------------------------------------------
         # Diplôme
         # ---------------------------------------------
 
-        document.add_heading('Diplôme', level=2)
+        document.add_heading('Formation et expérience professionnelle', level=2)
 
         titre = document.add_paragraph()
         titre.add_run('Titre : ').bold = True
@@ -152,10 +154,17 @@ class Rapport:
         these_j.add_run('Jury : ').bold = True
         these_j.add_run(candidat['Jury'])
 
-        if candidat['Autres diplômes'] != "":
-            autre = document.add_paragraph()
-            autre.add_run('Autres diplômes : ').bold = True
-            autre.add_run(f"{candidat['Autres diplômes']}")
+        autre = document.add_paragraph()
+        autre.add_run('Autres diplômes : ').bold = True
+        autre.add_run(f"{candidat['Autres diplômes']}" if candidat['Autres diplômes'] else '.' * 20)
+
+        exp_r = document.add_paragraph()
+        exp_r.add_run('Expérience professionnelle en recherche : ').bold = True
+        exp_r.add_run("." * 20)
+
+        exp_e = document.add_paragraph()
+        exp_e.add_run('Expérience professionnelle en enseignement : ').bold = True
+        exp_e.add_run("." * 20)
 
         # ---------------------------------------------
         # Activités
@@ -175,12 +184,20 @@ class Rapport:
         administration.add_run('Activités administratives : ').bold = True
         administration.add_run(candidat['Activités administratives'])
 
+        editorial = document.add_paragraph()
+        editorial.add_run('Activités éditoriales : ').bold = True
+        editorial.add_run('.' * 20)
+
         document.add_heading("Publications", level=2)
 
-        if candidat['Travaux'] != "":
-            publications = document.add_paragraph()
-            publications.add_run('Travaux : ').bold = True
-            publications.add_run(candidat['Travaux'])
+        publications = document.add_paragraph()
+        publications.add_run('Travaux : ').bold = True
+        publications.add_run(candidat['Travaux'] if candidat['Travaux'] else '.' * 20)
+
+        code = document.add_paragraph()
+        code.add_run('Logiciels : ').bold = True
+        code.add_run('.' * 20)
+
 
         # ---------------------------------------------
         # Proposition et avis
@@ -188,28 +205,38 @@ class Rapport:
 
         title = document.add_heading(level=1)
         title.alignment = 1
-        run = title.add_run("Proposition et avis détaillé de la rapporteuse")
+        title.add_run("Proposition et avis détaillé de la rapporteuse")
 
-        table = document.add_table(rows=4, cols=1)
+        table = document.add_table(rows=6, cols=1)
 
         cells = table.rows[0].cells
-        par = cells[0].add_paragraph()
-        par.alignment = 1
-        par.add_run(
-            'Compte tenu du profil du poste, tel qu’il a été diffusé, je recommande l’audition du candidat ci-dessus (favorable ou réservé ou défavorable):')
+        cells[0].text = "Adéquation du profil du candidat au profil d'enseignement"
+        p = cells[0].paragraphs[0]
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.runs[0].font.bold = True
 
         cells = table.rows[1].cells
         par = cells[0].add_paragraph()
-        par.add_run('Avis :').bold = True
         par.add_run('\n')
 
         cells = table.rows[2].cells
-        cells[0].text = 'AVIS DETAILLE DE LA DÉCISION (synthèse et adéquation au profil)'
+        cells[0].text = "Adéquation du profil du candidat au profil de recherche"
+        p = cells[0].paragraphs[0]
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.runs[0].font.bold = True
 
         cells = table.rows[3].cells
-
         par = cells[0].add_paragraph()
-        par.add_run('Motif : ').bold = True
+        par.add_run('\n')
+
+        cells = table.rows[4].cells
+        cells[0].text = 'Avis (favorable ou réservé ou défavorable)'
+        p = cells[0].paragraphs[0]
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.runs[0].font.bold = True
+
+        cells = table.rows[5].cells
+        par = cells[0].add_paragraph()
         par.add_run('\n')
 
         # ---------------------------------------------
@@ -225,8 +252,8 @@ class Rapport:
         if self.rapporteur.signature is not None:
             document.add_picture(self.rapporteur.signature, width=Inches(1.5))
 
-        last_paragraph = document.paragraphs[-1]
-        last_paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+            last_paragraph = document.paragraphs[-1]
+            last_paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
 
         document.add_page_break()
 

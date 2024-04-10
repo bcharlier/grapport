@@ -40,5 +40,6 @@ class Candidatures:
 
 
 if __name__ == '__main__':
-    candidatures = Candidatures("../data/encrypted_data.csv")
+    grapport.set_data_dir(os.path.join(os.path.dirname(__file__), '..', "exemple"))
+    candidatures = Candidatures("encrypted_data.csv")
     print(candidatures.get_candidate(0))
