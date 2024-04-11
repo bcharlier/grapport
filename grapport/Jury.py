@@ -16,7 +16,7 @@ class Jury:
         if filename.endswith('.csv'):
             return pd.read_csv(filename, sep=";", header=0)
         elif filename.endswith('.xls'):
-            return pd.read_excel(filename, dtype=object)
+            return pd.read_html(filename, header=0)[0]
         else:
             raise ValueError("Unknown file format")
 
