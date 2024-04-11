@@ -13,12 +13,22 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-# Quick start
+# Deux cas d'utilisation
+
+## Rapporteur
 
 Dans un terminal,
 ```bash
-cd exemple
-python main.py
+cd exemple/rapporteur
+python main_rapporteur.py
+```
+
+## Jury du Comité de Sélection
+
+Dans un terminal,
+```bash
+cd exemple/jury
+python main_jury.py
 ```
 
 # Auteur

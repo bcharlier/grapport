@@ -7,7 +7,7 @@ import grapport
 grapport.set_data_dir("./")
 
 # Charge les données des candidatures
-candidature = grapport.Candidatures("encrypted_data.csv")
+candidature = grapport.Candidatures("extraction galaxie.xls")
 
 # Définit le rapporteur
 votre_nom = "Camille Dupont"
