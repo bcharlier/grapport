@@ -40,6 +40,6 @@ class Candidatures:
 
 
 if __name__ == '__main__':
-    grapport.set_data_dir(os.path.join(os.path.dirname(__file__), '..', "exemple"))
-    candidatures = Candidatures("encrypted_data.csv")
+    grapport.set_data_dir(os.path.join(os.path.dirname(__file__), '..', "exemple", "rapporteur"))
+    candidatures = Candidatures("extraction galaxie.xls")
     print(candidatures.get_candidate(0))
