@@ -31,6 +31,16 @@ cd exemple/jury
 python main_jury.py
 ```
 
+# Adapter à votre cas
+
+Pour adapter le rendu à votre cas, vous pouvez modifier les fichiers [`Rapport.py`](./grapport/Rapport.py).
+
+# TODO (PR welcome)
+
+- [ ] créer un répertoire de templates pour différents types de rapport/institution
+- [ ] refactoriser le code pour permettre l'ajout de nouveaux types de rapport (latex, docx, html, etc.)
+
+
 # Auteur
 
 Benjamin Charlier - [benjamin.charlier@umontpellier.fr](mailto:benjamin.charlier@umontpellier.fr)

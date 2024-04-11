@@ -16,7 +16,7 @@ class Candidatures:
         if self.filename.endswith('.csv'):
             return pd.read_csv(self.filename, sep=";", header=0)
         elif self.filename.endswith('.xls'):
-            return pd.read_excel(self.filename, dtype=object)
+            return pd.read_excel(self.filename, header=0)
         else:
             raise ValueError("Unknown file format")
 
