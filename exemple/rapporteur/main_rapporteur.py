@@ -4,7 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 import grapport
 
 # Définit le répertoire des données
-grapport.set_data_dir("./")
+grapport.set_data_dir(os.path.dirname(__file__))
 
 # Charge les données des candidatures
 candidature = grapport.Candidatures("extraction galaxie.xls")

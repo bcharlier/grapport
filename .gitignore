@@ -1,5 +1,7 @@
 # docx generation garbage
 *.docx
+*.csv
+generate.py
 *.xml
 *.iml
 

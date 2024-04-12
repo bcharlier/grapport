@@ -4,6 +4,7 @@ from .Candidatures import Candidatures
 from .Rapport import Rapport
 from .Rapporteur import Rapporteur
 from .Jury import Jury
+from grapport.templates import *
 
 import grapport.config
 

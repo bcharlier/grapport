@@ -4,7 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 import grapport
 
 # Définit le répertoire des données
-grapport.set_data_dir(os.path.join(os.path.dirname(__file__)))
+grapport.set_data_dir(os.path.dirname(__file__))
 
 # Charge les données du jury
 jury = grapport.Jury("extraction galaxie.xls",
