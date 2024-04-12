@@ -7,10 +7,11 @@ import grapport.config
 
 
 class Jury:
-    def __init__(self, extraction_galaxie, liste_des_rapports):
+    def __init__(self, extraction_galaxie, liste_des_rapports, template="um_docx"):
         self.candidatures = self.get_candidatures(extraction_galaxie)
         self.liste_des_rapports = self.get_rapporteurs(liste_des_rapports)
         self.rapporteurs = set(self.liste_des_rapports["Nom du Rapporteur1"].unique()).union(set(self.liste_des_rapports["Nom du Rapporteur2"].unique()))
+        self.template = template
 
     def get_rapporteurs(self, filename):
         if filename.endswith('.csv'):
@@ -70,7 +71,7 @@ rapporteur = grapport.Rapporteur(votre_nom,
                                  )
 
 # Génère les rapports
-grapport.Rapport(candidature, rapporteur).generate()
+grapport.Rapport(candidature, rapporteur, template={'"' + self.template + '"'}).generate()
     """)
             # lance la génération des fiches de rapport
             try:
