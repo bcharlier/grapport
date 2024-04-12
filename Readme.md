@@ -31,15 +31,12 @@ cd exemple/jury
 python main_jury.py
 ```
 
-# Adapter à votre cas
+# Adapter à votre cas (PR welcome)
 
-Pour adapter le rendu à votre cas, vous pouvez modifier les fichiers [`Rapport.py`](./grapport/Rapport.py).
+Pour adapter le rendu à votre cas, vous pouvez ajouter un sous-répertoire dans le module[`grapport.templates`](./grapport/templates/).
 
-# TODO (PR welcome)
-
-- [ ] créer un répertoire de templates pour différents types de rapport/institution
-- [ ] refactoriser le code pour permettre l'ajout de nouveaux types de rapport (latex, docx, html, etc.)
-
+# TODO (PR Welcome again...)
+- [ ] documentation
 
 # Auteur
 
