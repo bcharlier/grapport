@@ -13,7 +13,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-# Deux cas d'utilisation
+# Démo : deux cas d'utilisation
 
 ## Rapporteur
 
