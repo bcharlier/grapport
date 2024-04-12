@@ -1,6 +1,6 @@
 # Grapport
 
-Générateur de rapport pour les Comités de Sélection.
+Générateur de rapport en **docx** ou **latex** pour les Comités de Sélection.
 
 # installation
 
@@ -36,6 +36,7 @@ python main_jury.py
 Pour adapter le rendu à votre cas, vous pouvez ajouter un sous-répertoire dans le module[`grapport.templates`](./grapport/templates/).
 
 # TODO (PR Welcome again...)
+
 - [ ] documentation
 
 # Auteur
