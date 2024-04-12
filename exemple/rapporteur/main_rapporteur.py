@@ -22,5 +22,5 @@ rapporteur = grapport.Rapporteur(votre_nom,
                                  )
 
 # Génère les rapports
-grapport.Rapport(candidature, rapporteur).generate()
-
+grapport.Rapport(candidature, rapporteur, template="um_docx").generate()
+grapport.Rapport(candidature, rapporteur, template="um_latex").generate()

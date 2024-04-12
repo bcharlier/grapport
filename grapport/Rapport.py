@@ -1,10 +1,7 @@
-import datetime
 import os.path
 
-
-
 import grapport
-from grapport.utils import calculate_age, short_path
+from grapport.utils import short_path
 
 
 class Abstract_Rapport:
@@ -30,7 +27,7 @@ class Abstract_Rapport:
             self.rapporteur.rapports = list(candidatures.data.index)
 
         self.filename_creator = lambda candidat: os.path.join(grapport.config.data_dir,
-                                                                f"rapport-{candidat['Nom'].replace(' ', '_')}_{candidat['Prénom'].replace(' ', '_')}-{self.rapporteur.nom.replace(' ', '_')}.{self.extension}}}")
+                                                                f"rapport-{candidat['Nom'].replace(' ', '_')}_{candidat['Prénom'].replace(' ', '_')}-{self.rapporteur.nom.replace(' ', '_')}.{self.extension}")
 
 
     def generate(self):
