@@ -1,3 +1,5 @@
+# Générer des rapports pour un jury
+
 Cet exemple montre comment générer les trames préremplies des rapports de COS. Deux fichiers sont nécessaires :
 
 1. l'extration galaxie des dossiers (en général fournie par l'administration) au format `.csv` ou `.xls`. 
@@ -6,4 +8,4 @@ Cet exemple montre comment générer les trames préremplies des rapports de COS
    depuis [ANTEE](https://galaxie.enseignementsup-recherche.gouv.fr/antares/jur/index.jsp) après avoir ventilé les dossiers à relire (onglet `Désignation des rapporteurs`). 
    Un exemple type de tel fichier est [Liste_des_rapporteurs_9999999X_666.xls](./Liste_des_rapporteurs_9999999X_666.xls)
 
-Sont générés, en sortie, des répertoires contenant les trames préremplies des rapports de COS.
+Sont générés, en sortie, des sous répertoires contenant les trames préremplies des rapports de COS.
