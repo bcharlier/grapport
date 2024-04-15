@@ -1,6 +1,6 @@
 # Grapport
 
-Générateur de rapport pour les Comités de Sélection.
+Générateur de rapport en **docx** ou **latex** pour les Comités de Sélection.
 
 # installation
 
@@ -13,7 +13,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-# Deux cas d'utilisation
+# Démo : deux cas d'utilisation
 
 ## Rapporteur
 
@@ -31,15 +31,13 @@ cd exemple/jury
 python main_jury.py
 ```
 
-# Adapter à votre cas
+# Adapter à votre cas (PR welcome)
 
-Pour adapter le rendu à votre cas, vous pouvez modifier les fichiers [`Rapport.py`](./grapport/Rapport.py).
+Pour adapter le rendu à votre cas, vous pouvez ajouter un sous-répertoire dans le module[`grapport.templates`](./grapport/templates/).
 
-# TODO (PR welcome)
+# TODO (PR Welcome again...)
 
-- [ ] créer un répertoire de templates pour différents types de rapport/institution
-- [ ] refactoriser le code pour permettre l'ajout de nouveaux types de rapport (latex, docx, html, etc.)
-
+- [ ] documentation
 
 # Auteur
 
