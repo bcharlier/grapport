@@ -40,7 +40,7 @@ class Jury:
             print(current_dir)
 
             # Crée un fichier candidats.csv pour chaque rapporteur
-            cond = self.candidatures['N° candidat'].isin(df_r['N° de Candidat'])
+            cond = self.candidatures['N° candidat'].astype(int).isin(df_r['N° de Candidat'].astype(int))
             self.candidatures.loc[cond, :].to_csv(os.path.join(current_dir, "candidats.csv"), sep=";", index=False)
 
             # Crée un fichier generate.py pour chaque rapporteur
@@ -73,9 +73,13 @@ rapporteur = grapport.Rapporteur(votre_nom,
 # Génère les rapports
 grapport.Rapport(candidature, rapporteur, template={'"' + self.template + '"'}).generate()
     """)
+            print("jjjjjj")
+            subprocess.run(["python", "generate.py"], cwd=current_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+
             # lance la génération des fiches de rapport
             try:
                 subprocess.run(["python", "generate.py"], cwd=current_dir, check=True)
-            except subprocess.CalledProcessError as e:
+            except subprocess.SubprocessError as e:
                 print(e)
                 print(f"Erreur lors de la génération des rapports pour {r}. Veuillez lancer manuellement le script dans {current_dir}.")
