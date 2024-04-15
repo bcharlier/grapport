@@ -73,10 +73,6 @@ rapporteur = grapport.Rapporteur(votre_nom,
 # Génère les rapports
 grapport.Rapport(candidature, rapporteur, template={'"' + self.template + '"'}).generate()
     """)
-            print("jjjjjj")
-            subprocess.run(["python", "generate.py"], cwd=current_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-
             # lance la génération des fiches de rapport
             try:
                 subprocess.run(["python", "generate.py"], cwd=current_dir, check=True)
