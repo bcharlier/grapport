@@ -95,8 +95,10 @@ def create_document(candidat, rapporteur):
 
     cand_s.add_run('\n')
     cand_s.add_run('Qualification : ').bold = True
-    cand_s.add_run(str(candidat['N° de qualif']))
+    cand_s.add_run(candidat['Référence qualif'].split('-')[1])
     cand_s.add_run(' ' * 5)
+    cand_s.add_run('Section :').bold = True
+    cand_s.add_run(candidat['Référence qualif'].split('-')[2])
 
     # ---------------------------------------------
     # Diplôme
@@ -116,7 +118,7 @@ def create_document(candidat, rapporteur):
     these_d.add_run('Date de soutenance : ').bold = True
     these_d.add_run(candidat['Date soutenance'])
     these_d.add_run(' ' * 5)
-    these_d.add_run('Etablissement : ').bold = True
+    these_d.add_run('Établissement : ').bold = True
     these_d.add_run(candidat['Lieu soutenance'])
 
     these_j = document.add_paragraph()
@@ -128,29 +130,57 @@ def create_document(candidat, rapporteur):
 
     autre = document.add_paragraph()
     autre.add_run('Autres diplômes : ').bold = True
-    autre.add_run(f"{candidat['Autres diplômes']}" if candidat['Autres diplômes'] else '.' * 20)
+    autre.add_run(f"{candidat['Autres diplômes']}" if candidat['Autres diplômes'] else '.' * 20).bold = False
 
     exp_r = document.add_paragraph()
     exp_r.add_run('Expérience professionnelle en recherche : ').bold = True
-    exp_r.add_run("." * 20)
+    exp_r.add_run("." * 20).bold = False
 
     exp_e = document.add_paragraph()
     exp_e.add_run('Expérience professionnelle en enseignement : ').bold = True
-    exp_e.add_run("." * 20)
+    exp_e.add_run("." * 20).bold = False
 
     # ---------------------------------------------
-    # Activités
+    # Activités Recherche
     # ---------------------------------------------
 
-    document.add_heading("Activités", level=2)
+    document.add_heading("Activités de recherche", level=2)
+
+    recherche = document.add_paragraph()
+    recherche.add_run('Activités recherche : ').bold = True
+    recherche.add_run(candidat['Activités recherche'])
+
+    publications = document.add_paragraph()
+    publications.add_run('Travaux : ').bold = True
+    publications.add_run(candidat['Travaux'] if candidat['Travaux'] else '.' * 20)
+
+    publications = document.add_paragraph()
+    publications.add_run('Encadrement : ').bold = True
+    publications.add_run('.' * 20).bold = False
+
+    code = document.add_paragraph()
+    code.add_run('Logiciels : ').bold = True
+    code.add_run('.' * 20).bold = False
+
+    # ---------------------------------------------
+    # Activités Enseignement
+    # ---------------------------------------------
+
+    document.add_heading("Activités d'enseignement", level=2)
 
     enseignement = document.add_paragraph()
     enseignement.add_run('Activités enseignement : ').bold = True
     enseignement.add_run(candidat['Activités enseignement'])
 
-    recherche = document.add_paragraph()
-    recherche.add_run('Activités recherche : ').bold = True
-    recherche.add_run(candidat['Activités recherche'])
+    administration = document.add_paragraph()
+    administration.add_run('Responsabilité administratives (école doctorales, filières, formation pro) : ').bold = True
+    administration.add_run('.' * 20).bold = False
+
+    # ---------------------------------------------
+    # Activités collectives
+    # ---------------------------------------------
+
+    document.add_heading("Responsabilités collectives", level=2)
 
     administration = document.add_paragraph()
     administration.add_run('Activités administratives : ').bold = True
@@ -158,17 +188,15 @@ def create_document(candidat, rapporteur):
 
     editorial = document.add_paragraph()
     editorial.add_run('Activités éditoriales : ').bold = True
-    editorial.add_run('.' * 20)
+    editorial.add_run('.' * 20).bold = False
 
-    document.add_heading("Publications", level=2)
+    evaluation = document.add_paragraph()
+    evaluation.add_run('Participation à des instances d’évaluation : ').bold = True
+    evaluation.add_run('.' * 20).bold = False
 
-    publications = document.add_paragraph()
-    publications.add_run('Travaux : ').bold = True
-    publications.add_run(candidat['Travaux'] if candidat['Travaux'] else '.' * 20)
-
-    code = document.add_paragraph()
-    code.add_run('Logiciels : ').bold = True
-    code.add_run('.' * 20)
+    mediation = document.add_paragraph()
+    mediation.add_run('Médiation scientifique : ').bold = True
+    mediation.add_run('.' * 20).bold = False
 
     # ---------------------------------------------
     # Proposition et avis
