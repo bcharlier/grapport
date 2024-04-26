@@ -9,7 +9,7 @@ grapport.set_data_dir(os.path.dirname(__file__))
 # Charge les données du jury : template="um_latex" ou template="um_docx"
 jury = grapport.Jury("extraction galaxie.xls",
                      "Liste_des_rapporteurs_9999999X_666.xls",
-                     template="um_docx")
+                     template="unistra_latex")
 
 # Génère les rapports
 jury.generate()
