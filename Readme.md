@@ -39,9 +39,13 @@ Pour adapter le rendu à votre cas, vous pouvez ajouter un sous-répertoire dans
 
 - [ ] documentation
 
-# Auteur
+# Auteurs
 
 Benjamin Charlier - [benjamin.charlier@umontpellier.fr](mailto:benjamin.charlier@umontpellier.fr)
+
+# Contribution
+
+Rutger Noot - [noot@math.unistra.fr](mailto:noot@math.unistra.fr) : `unistra_latex` template
 
 # Licence
 
