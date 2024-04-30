@@ -12,4 +12,4 @@ jury = grapport.Jury("extraction galaxie.xls",
                      template="unistra_latex")
 
 # Génère les rapports
-jury.generate()
+jury.generate(overwrite=False)

@@ -30,7 +30,7 @@ class Abstract_Rapport:
                                                                 f"rapport-{candidat['Nom'].replace(' ', '_')}_{candidat['Prénom'].replace(' ', '_')}-{self.rapporteur.nom.replace(' ', '_')}.{self.extension}")
 
 
-    def generate(self):
+    def generate(self, overwrite=False):
 
         for id in self.rapporteur.rapports:
             candidat = self.candidatures.get_candidate(id, type=self.rapporteur.type)
@@ -40,8 +40,11 @@ class Abstract_Rapport:
             print('done. Saving... ', end='')
 
             filename = self.filename_creator(candidat)
-            self.save(doc, filename)
-            print(f"Saved to {short_path(filename)}.")
+            if os.path.exists(filename) and not overwrite:
+                print(f"File {short_path(filename)} already exists. Skipping.")
+            else:
+                self.save(doc, filename)
+                print(f"Saved to {short_path(filename)}.")
 
     @staticmethod
     def create_document(candidat, rapporteur):

@@ -29,7 +29,7 @@ class Jury:
         else:
             raise ValueError("Unknown file format")
 
-    def generate(self):
+    def generate(self, overwrite=False):
         for r in self.rapporteurs:
             df_r = self.liste_des_rapports.loc[self.liste_des_rapports['Nom du Rapporteur1'].str.contains(r) | self.liste_des_rapports['Nom du Rapporteur2'].str.contains(r), ['N° de Candidat']]
             print(r + " : " + str(len(df_r)) + " candidats")
@@ -71,7 +71,7 @@ rapporteur = grapport.Rapporteur(votre_nom,
                                  )
 
 # Génère les rapports
-grapport.Rapport(candidature, rapporteur, template={'"' + self.template + '"'}).generate()
+grapport.Rapport(candidature, rapporteur, template={'"' + self.template + '"'}).generate(overwrite={overwrite})
     """)
             # lance la génération des fiches de rapport
             try:
